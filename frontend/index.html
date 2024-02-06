@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Calculator</title>
+</head>
+<body>
+    <h1>Simple Calculator</h1>
+    <form id="calculator-form">
+        <label for="number1">Number 1:</label>
+        <input type="number" id="number1" required>
+        <br>
+        <label for="number2">Number 2:</label>
+        <input type="number" id="number2" required>
+        <br>
+        <button type="button" id="calculate-button">Calculate</button>
+    </form>
+    <br>
+    <div id="result"></div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('calculator-form');
+            const number1Input = document.getElementById('number1');
+            const number2Input = document.getElementById('number2');
+            const calculateButton = document.getElementById('calculate-button');
+            const resultDiv = document.getElementById('result');
+            
+            calculateButton.addEventListener('click', function () {
+                const num1 = parseFloat(number1Input.value);
+                const num2 = parseFloat(number2Input.value);
+                
+                if (!isNaN(num1) && !isNaN(num2)) {
+                    // Send a POST request to the Flask API
+                    fetch('http://localhost:5000/multiply', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            'number1': num1,
+                            'number2': num2,
+                        }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.result !== undefined) {
+                            resultDiv.textContent = `Result: ${data.result}`;
+                        } else {
+                            resultDiv.textContent = 'Error calculating the product.';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        resultDiv.textContent = 'An error occurred while communicating with the server.';
+                    });
+                } else {
+                    resultDiv.textContent = 'Please enter valid numbers for both inputs.';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
