@@ -19,8 +19,8 @@ You'll need Python and pip installed on your system. You can download Python fro
 Run the following command to install Flask and Flask-CORS:
 
 ```
-git clone https://github.com/ekhar/simple_site/
-cd simple_site/backend
+git clone https://github.com/ekhar/simple_web/
+cd simple_web/backend
 pip install Flask flask-cors
 ```
 
