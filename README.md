@@ -20,6 +20,7 @@ Run the following command to install Flask and Flask-CORS:
 
 ```
 git clone https://github.com/ekhar/simple_site/
+cd simple_site/backend
 pip install Flask flask-cors
 ```
 
